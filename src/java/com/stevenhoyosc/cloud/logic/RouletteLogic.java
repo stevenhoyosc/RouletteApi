@@ -74,4 +74,16 @@ public class RouletteLogic implements RouletteInterface{
         return response;
         
     }
+    @Override
+    public Map<String, String> closeBets(int idRoulette) {
+        
+    }
+    private int numberWinner(){
+        int min = 0;
+        int max = 36;
+        int winnerNumber;
+        winnerNumber = (int) (Math.random() * (max - min + 1) + min);
+        return winnerNumber;
+    }
+    
 }

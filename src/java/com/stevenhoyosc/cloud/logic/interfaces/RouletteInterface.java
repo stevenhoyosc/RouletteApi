@@ -8,4 +8,5 @@ public interface RouletteInterface {
     Roulette newRoulette();
     Boolean openNewRoulette(int idRoulette);
     Map<String,String> openBets(BetsInputDTO params);
+    Map<String,String> closeBets(int idRoulette);
 }

@@ -7,6 +7,7 @@ import com.stevenhoyosc.cloud.logic.interfaces.RouletteInterface;
 import java.util.Map;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -39,5 +40,11 @@ public class RouletteFacadeRest {
     @Produces({MediaType.APPLICATION_JSON})
     public Map<String,String> openBet(BetsInputDTO params){
         return logic.openBets(params);
-    }  
+    }
+    @GET
+    @Path("winnRoulette")    
+    @Produces({MediaType.APPLICATION_JSON})
+    public Map<String,String> openBet(@HeaderParam("idRoulette") int idRoulette){
+        return logic.closeBets(idRoulette);
+    }
 }
