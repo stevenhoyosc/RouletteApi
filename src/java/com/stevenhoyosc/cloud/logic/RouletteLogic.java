@@ -76,7 +76,8 @@ public class RouletteLogic implements RouletteInterface{
     }
     @Override
     public Map<String, String> closeBets(int idRoulette) {
-        
+        int winner = numberWinner();
+        String colorWinner = colorWinner(winner);
     }
     private int numberWinner(){
         int min = 0;
@@ -84,6 +85,11 @@ public class RouletteLogic implements RouletteInterface{
         int winnerNumber;
         winnerNumber = (int) (Math.random() * (max - min + 1) + min);
         return winnerNumber;
+    }
+    private String colorWinner(int number){
+        final String color = (number%2 == 0)
+                ?  "red" :  "black";
+        return color;
     }
     
 }
