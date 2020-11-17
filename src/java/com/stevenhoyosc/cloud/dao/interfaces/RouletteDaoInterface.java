@@ -5,4 +5,5 @@ import java.util.Map;
 
 public interface RouletteDaoInterface {
     Roulette newRoulette();
+    Boolean openRoulette(int idRoulette);
 }

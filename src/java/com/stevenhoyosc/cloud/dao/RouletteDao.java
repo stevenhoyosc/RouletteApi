@@ -17,11 +17,9 @@ public class RouletteDao implements RouletteDaoInterface{
     private ResultSet rs;
     private PreparedStatement ps;
     private final DaoFactory daoFactory;
-
     public RouletteDao() {
         daoFactory = new DaoFactory();
     }
-    
     @Override
     public Roulette newRoulette() {
         Roulette result = new Roulette();
@@ -42,6 +40,20 @@ public class RouletteDao implements RouletteDaoInterface{
             System.out.println("com.stevenhoyosc.cloud.dao.RouletteDao.newRoulette()"+e);
         }
         return result;
+        
     }
-    
+    @Override
+    public Boolean openRoulette(int idRoulette) {
+        boolean result = false;
+        try {
+            cx = daoFactory.getConnection();
+            String sql = "UPDATE rlt_srv_rlt SET status=1 WHERE idrlt=?";
+            ps = cx.prepareStatement(sql);
+            ps.setInt(1, idRoulette);            
+            result= ps.executeUpdate()>0;            
+        } catch (SQLException e) {
+            System.out.println("com.stevenhoyosc.cloud.dao.RouletteDao.openRoulette()"+e);
+        }
+        return result;        
+    }    
 }

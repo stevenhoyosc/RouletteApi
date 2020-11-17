@@ -4,4 +4,5 @@ import com.stevenhoyosc.cloud.data.Roulette;
 
 public interface RouletteInterface {
     Roulette newRoulette();
+    Boolean openNewRoulette(int idRoulette);
 }

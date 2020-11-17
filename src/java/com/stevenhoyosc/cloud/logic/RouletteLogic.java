@@ -18,5 +18,10 @@ public class RouletteLogic implements RouletteInterface{
     public Roulette newRoulette() {
         return dao.newRoulette();
     }
+    @Override
+    public Boolean openNewRoulette(int idRoulette) {
+        return dao.openRoulette(idRoulette);
+    }
+    
         
 }

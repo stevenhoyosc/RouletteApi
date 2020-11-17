@@ -4,7 +4,9 @@ import com.stevenhoyosc.cloud.data.Roulette;
 import com.stevenhoyosc.cloud.logic.RouletteLogic;
 import com.stevenhoyosc.cloud.logic.interfaces.RouletteInterface;
 import javax.ejb.Stateless;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -21,5 +23,11 @@ public class RouletteFacadeRest {
     @Produces({MediaType.APPLICATION_JSON})
     public Roulette createNewRoulette(){       
         return logic.newRoulette();
+    }
+    @PUT
+    @Path("openRoulette")
+    @Produces({MediaType.APPLICATION_JSON})
+    public boolean openRoulette(@HeaderParam("idRoulette") int idRoulette){  
+        return logic.openNewRoulette(idRoulette);
     }
 }
