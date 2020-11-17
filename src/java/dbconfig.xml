@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <host>localhost</host>
+    <port>1433</port>
+    <user>steven</user>
+    <password>admin</password>
+    <dbname>rouletteDb</dbname>
+    <dbtype>sqlserver</dbtype>
+</database>
