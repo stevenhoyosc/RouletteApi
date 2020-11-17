@@ -128,7 +128,7 @@ public class RouletteDao implements RouletteDaoInterface{
             ps.setInt(2, idUsr);
             result= ps.executeUpdate()>0;            
         } catch (SQLException e) {
-            System.out.println("com.stevenhoyosc.cloud.dao.RouletteDao.openRoulette()"+e);
+            System.out.println("com.stevenhoyosc.cloud.dao.RouletteDao.updateMoneyUsr()"+e);
         }
         return result;
     }
