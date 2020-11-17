@@ -151,7 +151,7 @@ public class RouletteDao implements RouletteDaoInterface{
             ps.setString(5, param.getColorBet());
             result = ps.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.out.println("com.stevenhoyosc.cloud.dao.RouletteDao.openRoulette()" + e);
+            System.out.println("com.stevenhoyosc.cloud.dao.RouletteDao.insertBet()" + e);
         }
         return result;
     }
