@@ -2,6 +2,10 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/stevenhoyosc/Documents/NetBeansProjects/RouletteApi/src/java/com/stevenhoyosc/cloud/dao/RouletteDao.java</file>
+            <file>file:/C:/Users/stevenhoyosc/Documents/NetBeansProjects/RouletteApi/src/java/com/stevenhoyosc/cloud/logic/RouletteLogic.java</file>
+            <file>file:/C:/Users/stevenhoyosc/Documents/NetBeansProjects/RouletteApi/src/java/com/stevenhoyosc/rouletteservice/rest/service/RouletteFacadeRest.java</file>
+        </group>
     </open-files>
 </project-private>

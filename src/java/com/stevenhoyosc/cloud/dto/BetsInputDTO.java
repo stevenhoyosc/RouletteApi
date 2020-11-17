@@ -8,6 +8,7 @@ public class BetsInputDTO {
     private BigDecimal moneyBet;
     private int numberBet;
     private String colorBet;
+    private boolean betColor;
     public int getNumberBet() {
         return numberBet;
     }
@@ -38,4 +39,10 @@ public class BetsInputDTO {
     public void setIdRoulette(int idRoulette) {
         this.idRoulette = idRoulette;
     }  
+    public boolean isBetColor() {
+        return betColor;
+    }
+    public void setBetColor(boolean betColor) {
+        this.betColor = betColor;
+    }    
 }

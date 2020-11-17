@@ -1,6 +1,7 @@
 package com.stevenhoyosc.cloud.dao.interfaces;
 
 import com.stevenhoyosc.cloud.data.Roulette;
+import com.stevenhoyosc.cloud.dto.BetsInputDTO;
 import java.math.BigDecimal;
 
 public interface RouletteDaoInterface {
@@ -10,4 +11,5 @@ public interface RouletteDaoInterface {
     BigDecimal moneyOfUser(int idUsr);
     BigDecimal acumMoneyOfBet(int idRlt);
     Boolean updateMoneyUsr(BigDecimal total, int idUsr);
+    Boolean insertBet(BetsInputDTO param);
 }

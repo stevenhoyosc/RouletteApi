@@ -33,6 +33,7 @@ public class RouletteLogic implements RouletteInterface{
             if (validateMoney(params)) {
                 BigDecimal usrTotalMoney = dao.moneyOfUser(params.getIdUsr()).subtract(params.getMoneyBet());
                 dao.updateMoneyUsr(usrTotalMoney, params.getIdUsr());
+                dao.insertBet(params);
                 response.put("rouletteid", String.valueOf(params.getIdRoulette()));
                 response.put("message", "All ok, bet relized");
                 
@@ -52,6 +53,7 @@ public class RouletteLogic implements RouletteInterface{
         validateUserMoney = compareNumber(dao.moneyOfUser(params.getIdUsr()),params.getMoneyBet());
         validateBetMoney= validateBet(params);
         return validateBetMoney && validateUserMoney;
+        
     }
     private boolean compareNumber(BigDecimal i, BigDecimal j){
         boolean response = false;
@@ -61,16 +63,15 @@ public class RouletteLogic implements RouletteInterface{
             response = true;
         }
         return response;
+        
     }
     private boolean validateBet(BetsInputDTO params){
         boolean response = false;
         int resultComparator = 0;
         BigDecimal top = new BigDecimal("10000");
         BigDecimal betTotal = dao.acumMoneyOfBet(params.getIdRoulette()).add(params.getMoneyBet());
-        resultComparator = top.compareTo(betTotal);
-        if (resultComparator == 1) {
-            response = true;
-        }     
+        response = compareNumber(top, betTotal);
         return response;
+        
     }
 }

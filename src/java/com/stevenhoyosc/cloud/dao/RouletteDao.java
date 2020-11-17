@@ -2,6 +2,7 @@ package com.stevenhoyosc.cloud.dao;
 
 import com.stevenhoyosc.cloud.dao.interfaces.RouletteDaoInterface;
 import com.stevenhoyosc.cloud.data.Roulette;
+import com.stevenhoyosc.cloud.dto.BetsInputDTO;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -107,11 +108,11 @@ public class RouletteDao implements RouletteDaoInterface{
             rs = ps.executeQuery();
             if (rs != null) {
                 if (rs.next()) {
-                    result = rs.getBigDecimal("usrmoney");
+                    result = rs.getBigDecimal("acum");
                 }
             }
         } catch (SQLException e) {
-            System.out.println("com.stevenhoyosc.cloud.dao.RouletteDao.moneyOfUser()" + e);
+            System.out.println("com.stevenhoyosc.cloud.dao.RouletteDao.acumMoneyOfBet()" + e);
         }
         return result;
     }
@@ -128,6 +129,29 @@ public class RouletteDao implements RouletteDaoInterface{
             result= ps.executeUpdate()>0;            
         } catch (SQLException e) {
             System.out.println("com.stevenhoyosc.cloud.dao.RouletteDao.openRoulette()"+e);
+        }
+        return result;
+    }
+
+    @Override
+    public Boolean insertBet(BetsInputDTO param) {
+        boolean result = false;
+        try {
+            cx = daoFactory.getConnection();
+            String sql = "INSERT INTO rlt_srv_usrbets(idusr,idrlt,betmoney,numberbeat,colorbeat) VALUES (?,?,?,?,?) ";
+            ps = cx.prepareStatement(sql);
+            ps.setInt(1, param.getIdUsr());
+            ps.setInt(2, param.getIdRoulette());
+            ps.setBigDecimal(3, param.getMoneyBet());
+            if (param.isBetColor()) {
+                ps.setNull(4, java.sql.Types.INTEGER);
+            }else{
+                ps.setInt(4, param.getNumberBet());                
+            }
+            ps.setString(5, param.getColorBet());
+            result = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("com.stevenhoyosc.cloud.dao.RouletteDao.openRoulette()" + e);
         }
         return result;
     }
