@@ -1,8 +1,8 @@
 package com.stevenhoyosc.cloud.data;
 
 public class Roulette {
-    int idrlt;
-    boolean status;
+    private int idrlt;
+    private boolean status;
     public int getIdrlt() {
         return idrlt;
     }

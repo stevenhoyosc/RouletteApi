@@ -7,10 +7,10 @@ import java.math.BigInteger;
  * @author stevenhoyosc
  */
 public class UserBets {
-    int idusr;
-    int name;
-    int lastname;
-    BigInteger usrmoney;
+    private int idusr;
+    private int name;
+    private int lastname;
+    private BigInteger usrmoney;
     public int getIdusr() {
         return idusr;
     }

@@ -3,10 +3,10 @@ package com.stevenhoyosc.cloud.data;
 import java.math.BigInteger;
 
 public class User {
-    int idusr;
-    String name;
-    String lastname;
-    BigInteger usrmoney;
+    private int idusr;
+    private String name;
+    private String lastname;
+    private BigInteger usrmoney;
     public int getIdusr() {
         return idusr;
     }
