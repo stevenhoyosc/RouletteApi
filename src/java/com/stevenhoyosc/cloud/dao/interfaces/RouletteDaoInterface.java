@@ -4,6 +4,7 @@ import com.stevenhoyosc.cloud.data.Roulette;
 import com.stevenhoyosc.cloud.dto.BetsInputDTO;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface RouletteDaoInterface {
     Roulette newRoulette();
@@ -18,4 +19,5 @@ public interface RouletteDaoInterface {
     void updateWinnerNumber( int idRlt);
     void updateWinnerColor( int idRlt);
     ArrayList bets(int idRlt);
+    List<Roulette> allRoulette();
 }

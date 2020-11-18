@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RouletteDao implements RouletteDaoInterface{
     private Connection cx;
@@ -240,5 +241,27 @@ public class RouletteDao implements RouletteDaoInterface{
             System.out.println("com.stevenhoyosc.cloud.dao.RouletteDao.bets()"+e);
         }
         return result;        
+    }
+
+    @Override
+    public List<Roulette> allRoulette() {
+        List<Roulette> result = new ArrayList<>();
+        try {
+            cx = daoFactory.getConnection();
+            String sql = "  SELECT * FROM rlt_srv_rlt";
+            ps = cx.prepareStatement(sql);            
+            rs = ps.executeQuery();
+            if (rs != null) {
+                while (rs.next()) {                  
+                    Roulette response = new Roulette();
+                    response.setIdrlt(rs.getInt("idrlt"));
+                    response.setStatus(rs.getBoolean("status"));                    
+                    result.add(response);
+                }
+            }            
+        } catch (SQLException e) {
+            System.out.println("com.stevenhoyosc.cloud.dao.RouletteDao.allRoulette()"+e);
+        }
+        return result;
     }
 }

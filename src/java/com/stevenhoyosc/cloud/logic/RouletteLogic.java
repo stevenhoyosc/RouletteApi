@@ -8,6 +8,7 @@ import com.stevenhoyosc.cloud.logic.interfaces.RouletteInterface;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -92,7 +93,7 @@ public class RouletteLogic implements RouletteInterface{
             
         }else{
             ArrayList err = new ArrayList();
-            err.add("Winner Number: " +winner+" idroulette: "+ idRoulette+ "dont have winner");
+            err.add("Winner Number: " +winner+" idroulette: "+ idRoulette+ " dont have winner");
             responseBet.put("error", err);
             responseBet.put("data", dao.bets(winner));
         }
@@ -109,6 +110,11 @@ public class RouletteLogic implements RouletteInterface{
         final String color = (number%2 == 0)
                 ?  "red" :  "black";
         return color;
+    }
+
+    @Override
+    public List<Roulette> allRoulette() {
+        return dao.allRoulette();
     }
     
 }

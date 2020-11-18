@@ -5,6 +5,7 @@ import com.stevenhoyosc.cloud.dto.BetsInputDTO;
 import com.stevenhoyosc.cloud.logic.RouletteLogic;
 import com.stevenhoyosc.cloud.logic.interfaces.RouletteInterface;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
@@ -48,4 +49,11 @@ public class RouletteFacadeRest {
     public Map<String,ArrayList> openBet(@HeaderParam("idRoulette") int idRoulette){
         return logic.closeBets(idRoulette);
     }
+    @GET
+    @Path("allRoulete")    
+    @Produces({MediaType.APPLICATION_JSON})
+    public List<Roulette> getAllRoulette(@HeaderParam("idRoulette") int idRoulette){
+        return logic.allRoulette();
+    }
+    
 }
