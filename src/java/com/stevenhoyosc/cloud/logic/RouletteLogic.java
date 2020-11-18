@@ -89,13 +89,13 @@ public class RouletteLogic implements RouletteInterface{
             msg.add("Winner Number: ");
             msg.add(winner);
             responseBet.put("msg", msg);
-            responseBet.put("data", dao.bets(winner));
+            responseBet.put("data", dao.bets(idRoulette));
             
         }else{
             ArrayList err = new ArrayList();
             err.add("Winner Number: " +winner+" idroulette: "+ idRoulette+ " dont have winner");
             responseBet.put("error", err);
-            responseBet.put("data", dao.bets(winner));
+            responseBet.put("data", dao.bets(idRoulette));
         }
         return responseBet;
     }
