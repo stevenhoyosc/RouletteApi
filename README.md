@@ -202,3 +202,4 @@ The service response data as a JSON with the winner number and all bets in the r
     ]
 }
 ```
+POST petition to : [http://localhost:8080/rouletteservice/query/roulette/winnRoulette](http://localhost:8080/rouletteservice/query/roulette/winnRoulette)
