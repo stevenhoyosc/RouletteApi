@@ -6,6 +6,7 @@ import com.stevenhoyosc.cloud.data.Roulette;
 import com.stevenhoyosc.cloud.dto.BetsInputDTO;
 import com.stevenhoyosc.cloud.logic.interfaces.RouletteInterface;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,9 +76,27 @@ public class RouletteLogic implements RouletteInterface{
         
     }
     @Override
-    public Map<String, String> closeBets(int idRoulette) {
+    public Map<String, ArrayList> closeBets(int idRoulette) {
+        Map<String,ArrayList> responseBet = new HashMap<String, ArrayList>();
         int winner = numberWinner();
-        String colorWinner = colorWinner(winner);
+        String colorWinner = colorWinner(winner);        
+        if (dao.updateWinners(idRoulette,colorWinner, winner)) {
+            dao.updateLooser(winner);
+            dao.updateWinnerNumber(winner);
+            dao.updateWinnerColor(winner);
+            ArrayList msg = new ArrayList();
+            msg.add("Winner Number: ");
+            msg.add(winner);
+            responseBet.put("msg", msg);
+            responseBet.put("data", dao.bets(winner));
+            
+        }else{
+            ArrayList err = new ArrayList();
+            err.add("Winner Number: " +winner+" idroulette: "+ idRoulette+ "dont have winner");
+            responseBet.put("error", err);
+            responseBet.put("data", dao.bets(winner));
+        }
+        return responseBet;
     }
     private int numberWinner(){
         int min = 0;

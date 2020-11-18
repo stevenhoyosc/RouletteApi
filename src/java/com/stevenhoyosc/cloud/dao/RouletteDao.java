@@ -2,12 +2,14 @@ package com.stevenhoyosc.cloud.dao;
 
 import com.stevenhoyosc.cloud.dao.interfaces.RouletteDaoInterface;
 import com.stevenhoyosc.cloud.data.Roulette;
+import com.stevenhoyosc.cloud.data.UserBets;
 import com.stevenhoyosc.cloud.dto.BetsInputDTO;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class RouletteDao implements RouletteDaoInterface{
     private Connection cx;
@@ -93,7 +95,6 @@ public class RouletteDao implements RouletteDaoInterface{
         }
         return result;
     }
-
     @Override
     public BigDecimal acumMoneyOfBet(int idRlt) {
         BigDecimal result = BigDecimal.ZERO;
@@ -116,7 +117,6 @@ public class RouletteDao implements RouletteDaoInterface{
         }
         return result;
     }
-
     @Override
     public Boolean updateMoneyUsr(BigDecimal total,int idUsr) {
         boolean result = false;
@@ -132,7 +132,6 @@ public class RouletteDao implements RouletteDaoInterface{
         }
         return result;
     }
-
     @Override
     public Boolean insertBet(BetsInputDTO param) {
         boolean result = false;
@@ -154,5 +153,92 @@ public class RouletteDao implements RouletteDaoInterface{
             System.out.println("com.stevenhoyosc.cloud.dao.RouletteDao.insertBet()" + e);
         }
         return result;
+    }
+    @Override
+    public Boolean updateWinners(int idRlt, String color, int number) {
+        boolean result = false;
+        try {
+            cx = daoFactory.getConnection();
+            String sql = "UPDATE rlt_srv_usrbets SET winner = 'true'  "
+                    + " WHERE idbets in ( "
+                    + "	SELECT idbets FROM rlt_srv_usrbets  "
+                    + "	WHERE idrlt=? AND (colorbeat = ? OR numberbeat=?)) ";
+            ps = cx.prepareStatement(sql);
+            ps.setInt(1, idRlt);
+            ps.setString(2, color);
+            ps.setInt(3, number);
+            result = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.out.println("com.stevenhoyosc.cloud.dao.RouletteDao.updateWinners()" + e);
+        }
+        return result;
+    }
+    @Override
+    public void updateLooser(int idRlt) {                
+        try {
+            cx = daoFactory.getConnection();
+            String sql = "UPDATE rlt_srv_usrbets SET betmoney = 0  "
+                    + "WHERE idrlt = ? AND winner = 0 ";
+            ps = cx.prepareStatement(sql);
+            ps.setInt(1, idRlt);            
+            ps.execute();
+        } catch (SQLException e) {
+            System.out.println("com.stevenhoyosc.cloud.dao.RouletteDao.updateLooser()" + e);
+        }        
+    }
+    @Override
+    public void updateWinnerNumber(int idRlt) {
+        try {
+            cx = daoFactory.getConnection();
+            String sql = "UPDATE rlt_srv_usrbets SET betmoney = betmoney*5   "
+                    + "WHERE idbets in ( select idbets from rlt_srv_usrbets "
+                    + "where idrlt = ? AND numberbeat<>NULL AND winner = 1 ) ";
+            ps = cx.prepareStatement(sql);
+            ps.setInt(1, idRlt);
+            ps.execute();
+        } catch (SQLException e) {
+            System.out.println("com.stevenhoyosc.cloud.dao.RouletteDao.updateWinnerNumber()" + e);
+        }
+    }
+    @Override
+    public void updateWinnerColor(int idRlt) {
+        try {
+            cx = daoFactory.getConnection();
+            String sql = "UPDATE rlt_srv_usrbets SET betmoney = betmoney*1.8   "
+                    + "WHERE idbets in (select idbets from rlt_srv_usrbets "
+                    + "where idrlt = ? AND colorbeat<>'' AND winner = 1) ";
+            ps = cx.prepareStatement(sql);
+            ps.setInt(1, idRlt);
+            ps.execute();
+        } catch (SQLException e) {
+            System.out.println("com.stevenhoyosc.cloud.dao.RouletteDao.updateWinnerColor()" + e);
+        }
+    }
+    @Override
+    public ArrayList bets(int idRlt) {
+        ArrayList result = new ArrayList();
+        try {
+            cx = daoFactory.getConnection();
+            String sql = "  SELECT * FROM rlt_srv_usrbets "
+                    + "WHERE idrlt = ? ";
+            ps = cx.prepareStatement(sql);
+            ps.setInt(1, idRlt);
+            rs = ps.executeQuery();
+            if (rs != null) {
+                while (rs.next()) {                  
+                    UserBets response = new UserBets();
+                    response.setIdusr(rs.getInt("idusr"));
+                    response.setIdrlt(rs.getInt("idrlt"));
+                    response.setBetmoney(rs.getBigDecimal("betmoney"));
+                    response.setNumberbeat(rs.getInt("numberbeat"));
+                    response.setColorbeat(rs.getString("colorbeat"));
+                    response.setWinner(rs.getBoolean("winner"));
+                    result.add(response);
+                }
+            }            
+        } catch (SQLException e) {
+            System.out.println("com.stevenhoyosc.cloud.dao.RouletteDao.bets()"+e);
+        }
+        return result;        
     }
 }
