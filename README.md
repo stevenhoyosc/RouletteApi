@@ -38,7 +38,12 @@ ALTER TABLE rlt_srv_usrbets
 ADD FOREIGN KEY (idrlt) REFERENCES rlt_srv_rlt(idrlt);
 ```
 
-[Tables Description](https://www.notion.so/eb75a7712de940e5abaf4a751e340552)
+| Table | Description |
+| --- | ----------- |
+| rlt_srv_usr | All information of the user, including the money that they can use to bet |
+| rlt_srv_usrbets | Data of bets, have information of each beat that is do it |
+| rlt_srv_rlt | Information of the roulette, if any of these is open or close |
+
 
 ---
 
