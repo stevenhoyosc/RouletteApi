@@ -82,9 +82,9 @@ public class RouletteLogic implements RouletteInterface{
         int winner = numberWinner();
         String colorWinner = colorWinner(winner);        
         if (dao.updateWinners(idRoulette,colorWinner, winner)) {
-            dao.updateLooser(winner);
-            dao.updateWinnerNumber(winner);
-            dao.updateWinnerColor(winner);
+            dao.updateLooser(idRoulette);
+            dao.updateWinnerNumber(idRoulette);
+            dao.updateWinnerColor(idRoulette);
             ArrayList msg = new ArrayList();
             msg.add("Winner Number: ");
             msg.add(winner);
