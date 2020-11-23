@@ -1,14 +1,14 @@
 # Roulette API REST SERVICE
 
-This API is build in JAVA EE with SQL SERVER 2016 (Database motor). I've been working in five services that I m going to describe in this document. 
+This API is built in JAVA EE with SQL SERVER 2016 (Database motor). I've been working on five services which I m going to describe in this document.
 
 > Installation
 
-Compile the project with java 8, and use JBOSS or [Wildly 20](https://www.wildfly.org/news/2020/06/08/WildFly20-Final-Released/) application server to deploy the services. 
+Compile the project with java 8, and use JBOSS or [Wildly 20](https://www.wildfly.org/news/2020/06/08/WildFly20-Final-Released/) application server to deploy the services.
 
 > Database
 
-For database creation I used the next query: 
+I used the following query for database creation:
 
 ```sql
 CREATE TABLE rlt_srv_usr(
@@ -38,37 +38,36 @@ ALTER TABLE rlt_srv_usrbets
 ADD FOREIGN KEY (idrlt) REFERENCES rlt_srv_rlt(idrlt);
 ```
 
-| Table | Description |
-| --- | ----------- |
-| rlt_srv_usr | All information of the user, including the money that they can use to bet |
-| rlt_srv_usrbets | Data of bets, have information of each beat that is do it |
-| rlt_srv_rlt | Information of the roulette, if any of these is open or close |
-
+| Table           | Description                                                                                    |
+| --------------- | ---------------------------------------------------------------------------------------------- |
+| rlt_srv_usr     | All user information, including the money they can use to bet                                  |
+| rlt_srv_usrbets | it has the data of each bet that it's going to be carried out                                  |
+| rlt_srv_rlt     | It contains the information of the roulette, including if any of these is either open or close |
 
 ---
 
 # Rest Services Documentation.
 
-### Configuration of Connection to Database
+### Configuration for Connection to Database
 
-I built a configuration XML document to manage all configuration parameters of Database. This document is read by the application to set parameters of connection. The name of the document is **dbconfig.xml** 
+I built a XML configuration document to manage all setup parameters of the Database. This document is set up by the application to run parameters of connection. The document's name is **dbconfig.xml**
 
-### Endpoint:  Creation of new Roulette.
+### Endpoint: Creation of new Roulette.
 
-Consume  **newRoulette** service**.** this is a POST petition that return a the created roulette in a JSON format : 
+Consume **newRoulette** service**.** this is a POST petition that returns the newly established roulette in a JSON format :
 
 ```json
 {
-    "idrlt": 1,
-    "status": false
+  "idrlt": 1,
+  "status": false
 }
 ```
 
-The petition doesn't need any body or header configurable parameter , only that the client realize the POST petition to  [http://localhost:8080/rouletteservice/query/roulette/newRoulette](http://localhost:8080/rouletteservice/query/roulette/newRoulette)
+The petition does not need neither body nor header configurable parameter , only the client must carry out the POST petition to [http://localhost:8080/rouletteservice/query/roulette/newRoulette](http://localhost:8080/rouletteservice/query/roulette/newRoulette)
 
-### Endpoint: List of roulettes created
+### Endpoint: List of created roulettes
 
-Consume **allRoulete** service. This is a GET petition that return all roulettes created in a JSON format as below: 
+Consume **allRoulete** service. This is a GET petition that returns all roulettes created in a JSON format as below:
 
 ```json
 [
@@ -83,123 +82,119 @@ Consume **allRoulete** service. This is a GET petition that return all roulettes
 }
 ```
 
-The petition doesn't need any body or header configurable parameter , only that the client realize the GET petition to  [http://localhost:8080/rouletteservice/query/roulette/allRoulete](http://localhost:8080/rouletteservice/query/roulette/allRoulete)
+The petition does not need neither body nor header configurable parameter , only the client must carry out the GET petition to [http://localhost:8080/rouletteservice/query/roulette/allRoulete](http://localhost:8080/rouletteservice/query/roulette/allRoulete)
 
-### Endpoint: open some roulette
+### Endpoint: A roulette is open up
 
-Consume **openRoulette** service. This is a PUT petition that update an specific roulette by the id.
+Consume **openRoulette** service. This is a PUT petition that update an specific roulette by using the id code.
 
-The client should sent the petition with a header that must have the **id of the roulette** to update for example: 
+The client must send the petition containing a header with the **id of the roulette** to be updated, for example:
 
 ```
 Key: idRoulette
 Value: 1
 ```
 
-The service return **TRUE** if the petition was successful or **FALSE** in the other case.
+The service returns **TRUE** if the petition was successful or **FALSE** in the other case.
 
 Put petition to: [http://localhost:8080/rouletteservice/query/roulette/openRoulette](http://localhost:8080/rouletteservice/query/roulette/openRoulette)
 
-### Endpoint: Open Bets
+### Endpoint: Opening Bets
 
-Consume **openBets** service. This is a POST petition that permit people bet to a roulette. Also, the service do multiple validations:
+Consume **openBets** service. This is a POST petition that permits people to bet on a roulette. In addition, the service makes multiple validations:
 
 - Validate if the user can bet.
-- Validate if the roulette can be used to bet.
-- Validate the top money that a roulette should be.
+- Validate if the roulette could be used to bet.
+- Validate the maximum amount of money a roulette should have.
 
-The service need that the client sent a POST petition with a body as below: 
+The service needs that the client sends a POST petition with a body as below:
 
 ```json
 {
-    "idUsr": 2,
-    "idRoulette": 1,
-    "moneyBet": 5000,
-    "numberBet": 0,
-    "colorBet": "black",
-    "betColor": true
+  "idUsr": 2,
+  "idRoulette": 1,
+  "moneyBet": 5000,
+  "numberBet": 0,
+  "colorBet": "black",
+  "betColor": true
 }
 ```
 
-                        
-
-- idUsr: id of the user that do the bet
-- idRoulette: id of the roulette to bet
-- moneyBet: Quantity of money to bet of the user
-- numberBet: If the user bet to a number
-- colorBet: if the user bet to a color
+- idUsr: id of the user making a bet
+- idRoulette: id of the roulette to be bet
+- moneyBet: Amount of money to be bet by the user
+- numberBet: If the user bets for a number
+- colorBet: if the user bets for a color
 - betColor: true if the user bet to a color, otherwise false.
 
 The response of the service is a message with success or fail.
 
 ```json
 {
-    "rouletteid": "1",
-    "message": "All ok, bet relized"
+  "rouletteid": "1",
+  "message": "Successful bet"
 }
 ```
 
 ```json
 {
-    "rouletteid": "1",
-    "message": "Problem With money in user or bet"
+  "rouletteid": "1",
+  "message": "User's money or bet were wrong"
 }
 ```
 
 ```json
 {
-    "rouletteid": "3",
-    "message": "Close Roulette to bet"
+  "rouletteid": "3",
+  "message": "Roulette close to bet"
 }
 ```
 
 POST petition to : [http://localhost:8080/rouletteservice/query/roulette/openBets](http://localhost:8080/rouletteservice/query/roulette/openBets)
 
-### Endpoint: resolve the winner of the bet
+### Endpoint: resolving the bet winner
 
-Consume **winnRoulette** service. This service return the final state of each bet that got to the roulette.  The service calculate the winner with a random number between 0 and 36.
+Consume **winnRoulette** service. This service returns the final state of each bet made on the roulette. The service calculates the winner with a random number between 0 and 36.
 
-The service need a header that must have the **id of the roulette** as below in a example: 
+The service needs a header containing the **id of the roulette** as below in a example:
 
 ```
 Key: idRoulette
 Value: 1
 ```
 
-The service response data as a JSON with the winner number and all bets in the roulette as below, 
+The service response data is a JSON format containing winning number and all bets in the roulette as below,
 
 ```json
 {
-    "msg": [
-        "Winner Number: ",
-        23
-    ],
-    "data": [
-        {
-            "betmoney": 1800.0000,
-            "colorbeat": "black",
-            "idrlt": 1,
-            "idusr": 2,
-            "numberbeat": 0,
-            "winner": true
-        },
-        {
-            "betmoney": 0.0000,
-            "colorbeat": "red",
-            "idrlt": 1,
-            "idusr": 1,
-            "numberbeat": 0,
-            "winner": false
-        },
-        {
-            "betmoney": 0.0000,
-            "colorbeat": "",
-            "idrlt": 1,
-            "idusr": 3,
-            "numberbeat": 3,
-            "winner": false
-        }
-    ]
+  "msg": ["Winner Number: ", 23],
+  "data": [
+    {
+      "betmoney": 1800.0,
+      "colorbeat": "black",
+      "idrlt": 1,
+      "idusr": 2,
+      "numberbeat": 0,
+      "winner": true
+    },
+    {
+      "betmoney": 0.0,
+      "colorbeat": "red",
+      "idrlt": 1,
+      "idusr": 1,
+      "numberbeat": 0,
+      "winner": false
+    },
+    {
+      "betmoney": 0.0,
+      "colorbeat": "",
+      "idrlt": 1,
+      "idusr": 3,
+      "numberbeat": 3,
+      "winner": false
+    }
+  ]
 }
 ```
+
 POST petition to : [http://localhost:8080/rouletteservice/query/roulette/winnRoulette](http://localhost:8080/rouletteservice/query/roulette/winnRoulette)

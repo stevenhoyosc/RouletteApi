@@ -6,6 +6,7 @@
             <file>file:/C:/Users/stevenhoyosc/Documents/NetBeansProjects/RouletteApi/src/java/com/stevenhoyosc/cloud/dao/RouletteDao.java</file>
             <file>file:/C:/Users/stevenhoyosc/Documents/NetBeansProjects/RouletteApi/src/java/com/stevenhoyosc/cloud/logic/RouletteLogic.java</file>
             <file>file:/C:/Users/stevenhoyosc/Documents/NetBeansProjects/RouletteApi/src/java/com/stevenhoyosc/rouletteservice/rest/service/RouletteFacadeRest.java</file>
+            <file>file:/C:/Users/stevenhoyosc/Documents/NetBeansProjects/RouletteApi/src/java/com/stevenhoyosc/cloud/dao/interfaces/RouletteDaoInterface.java</file>
         </group>
     </open-files>
 </project-private>
